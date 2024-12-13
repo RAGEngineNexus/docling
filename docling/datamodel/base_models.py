@@ -86,8 +86,10 @@ FormatToMimeType: Dict[InputFormat, List[str]] = {
     InputFormat.XML_USPTO: ["application/xml", "text/plain"],
 }
 
-MimeTypeToFormat = {
-    mime: fmt for fmt, mimes in FormatToMimeType.items() for mime in mimes
+MimeTypeToFormat: dict[str, list[InputFormat]] = {
+    mime: [fmt for fmt in FormatToMimeType if mime in FormatToMimeType[fmt]]
+    for value in FormatToMimeType.values()
+    for mime in value
 }
 
 
